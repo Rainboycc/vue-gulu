@@ -1,5 +1,5 @@
 <template>
-  <button class="g-button" :class="{ [`icon-${iconPosition==='right'?'right':'left'}`]: true }">
+  <button class="g-button" :class="{ [`icon-${iconPosition==='right'?'right':'left'}`]: true }" @click="click">
     <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
     <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
     <div class="content">
@@ -11,7 +11,6 @@
 <script>
 export default {
   name: 'g-button',
-  // props: ['icon', 'iconPosition']
   props: {
     icon: {},
     loading: {
@@ -24,6 +23,11 @@ export default {
       validator: (value) => { // 属性检查器
         return value === 'left' || value === 'right'
       }
+    }
+  },
+  methods: {
+    click (e) {
+      this.$emit('click', e)
     }
   }
 }
