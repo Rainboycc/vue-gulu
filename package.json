@@ -4,8 +4,9 @@
   "description": "这是一个UI框架",
   "main": "index.js",
   "scripts": {
-    "serve": "npx parcel index.html --no-cache",
-    "test": "npx parcel build test/* --no-cache --no-minify && karma start --single-run"
+    "serve": "parcel index.html --no-cache",
+    "serve-test": "parcel watch test/* --no-cache & karma start",
+    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
   },
   "repository": {
     "type": "git",
