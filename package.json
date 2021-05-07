@@ -1,11 +1,11 @@
 {
-  "name": "gulu",
+  "name": "rainboycc-gulu-test",
   "version": "0.0.1",
   "description": "这是一个UI框架",
   "main": "index.js",
   "scripts": {
     "serve": "parcel index.html --no-cache",
-    "serve-test": "parcel watch test/* --no-cache & karma start",
+    "dev-test": "parcel watch test/* --no-cache & karma start",
     "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
   },
   "repository": {
