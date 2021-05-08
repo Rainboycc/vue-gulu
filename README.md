@@ -1,5 +1,6 @@
 ## gulu 一个vue的轮子
 
+[![Build Status](https://www.travis-ci.com/Rainboycc/vue-gulu.svg?branch=main)](https://www.travis-ci.com/Rainboycc/vue-gulu)
 ## 介绍
 
 ## 开始使用
