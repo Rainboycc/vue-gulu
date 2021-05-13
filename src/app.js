@@ -8,7 +8,9 @@ Vue.component(ButtonGroup.name, ButtonGroup)
 Vue.component('g-input', Input)
 new Vue ({
   el: '#app',
-  data: {},
+  data: {
+    message: ''
+  },
   methods: {
     inputChange(e) {
       console.log(e.target.value)
