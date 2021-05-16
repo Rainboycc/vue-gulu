@@ -24,34 +24,26 @@
       --border-color: #999;
       --border-color-hover: #666;
     }
-    #app {
-      padding: 20px;
-    }
-    #test {
-      padding: 20px;
-    }
-    .box {
-      margin: 20px;
+    .demo {
+      min-height: 100px;
+      border: 1px solid #666;
     }
   </style>
 </head>
 <body>
   <!-- demo展示 -->
   <div id="app">
-    <g-row>
-      <g-col class="demoBox" span="24" :ipad="{ span: 12 }" :narrowPc="{ span: 8 }" :pc="{ span: 6 }"></g-col>
-      <g-col class="demoBox" span="24" :ipad="{ span: 12 }" :narrowPc="{ span: 8 }" :pc="{ span: 6 }"></g-col>
-      <g-col class="demoBox" span="24" :ipad="{ span: 12 }" :narrowPc="{ span: 8 }" :pc="{ span: 6 }"></g-col>
-      <g-col class="demoBox" span="24" :ipad="{ span: 12 }" :narrowPc="{ span: 8 }" :pc="{ span: 6 }"></g-col>
-    </g-row>
+    <g-layout style="height: 100vh;">
+      <g-layout>
+        <g-sider class="demo">sider</g-sider>
+        <g-layout>
+          <g-header class="demo">header</g-header>
+          <g-content class="demo">content</g-content>
+        </g-layout>
+      </g-layout>
+      <g-footer class="demo">footer</g-footer>
+    </g-layout>
   </div>
-  <style>
-    .demoBox {
-      height: 50px;
-      background: grey;
-      border: 1px solid red;
-    }
-  </style>
   <script src="/src/app.js"></script>
 </body>
 </html> 

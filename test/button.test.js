@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Button from '../src/Button/button.vue'
+import Button from '../src/GButton/button.vue'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
