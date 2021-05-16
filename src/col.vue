@@ -79,77 +79,59 @@
 </script>
 
 <style lang="scss" scoped>
-  .col {
-    // width: 50%;
+  @mixin colCss($prefix) {
     @for $i from 1 through 24 {
-      &.col-#{$i} {
+      &.col-#{$prefix}#{$i} {
         width: ($i / 24) * 100%;
       }
     }
     @for $i from 1 through 24 {
-      &.offset-#{$i} {
+      &.offset-#{$prefix}#{$i} {
         margin-left: ($i / 24) * 100%;
       }
     }
-    @media screen and (min-width: 576px) {
-      @for $i from 1 through 24 {
-        &.col-ipad-#{$i} {
-          width: ($i / 24) * 100%;
-        }
-      }
-      @for $i from 1 through 24 {
-        &.offset-ipad-#{$i} {
-            margin-left: ($i / 24) * 100%;
-        }
-      }
-    }
-    @media screen and (min-width: 768px) {
-      @for $i from 1 through 24 {
-        &.col-narrow-pc-#{$i} {
-          width: ($i / 24) * 100%;
-        }
-      }
-      @for $i from 1 through 24 {
-        &.offset-narrow-pc-#{$i} {
-            margin-left: ($i / 24) * 100%;
-        }
-      }
-    }
-    @media screen and (min-width: 992px) {
-      @for $i from 1 through 24 {
-        &.col-pc-#{$i} {
-          width: ($i / 24) * 100%;
-        }
-      }
-      @for $i from 1 through 24 {
-        &.offset-pc-#{$i} {
-            margin-left: ($i / 24) * 100%;
-        }
-      }
-    }
-    @media screen and (min-width: 1200px) {
-      @for $i from 1 through 24 {
-        &.col-wide-pc#{$i} {
-          width: ($i / 24) * 100%;
-        }
-      }
-      @for $i from 1 through 24 {
-        &.offset-wide-pc#{$i} {
-            margin-left: ($i / 24) * 100%;
-        }
-      }
-    }
-    @media screen and (min-width: 1600px) {
-      @for $i from 1 through 24 {
-        &.col-super-pc-#{$i} {
-          width: ($i / 24) * 100%;
-        }
-      }
-      @for $i from 1 through 24 {
-        &.offset-super-pc-#{$i} {
-            margin-left: ($i / 24) * 100%;
-        }
-      }
-    }
+  }
+  @mixin ipad {
+    @media screen and (min-width: 577px) {
+      @content
+    };
+  };
+  @mixin narrow-pc {
+    @media screen and (min-width: 769px) {
+      @content
+    };
+  };
+  @mixin pc {
+    @media screen and (min-width: 993px) {
+      @content
+    };
+  };
+  @mixin wide-pc {
+    @media screen and (min-width: 1201px) {
+      @content
+    };
+  };
+  @mixin super-pc {
+    @media screen and (min-width: 1601px) {
+      @content
+    };
+  };
+  .col {
+    @include colCss('');
+    @include ipad {
+      @include colCss('ipad-');
+    };
+    @include narrow-pc {
+      @include colCss('narrow-pc-');
+    };
+    @include pc {
+      @include colCss('pc-');
+    };
+    @include wide-pc {
+      @include colCss('wide-pc-');
+    };
+    @include super-pc() {
+      @include colCss('super-pc-');
+    };
   }
 </style>
