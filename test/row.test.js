@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Row from '../src/row.vue'
-import Col from '../src/col.vue'
+import Row from '../src/Grid/row.vue'
+import Col from '../src/Grid/col.vue'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false

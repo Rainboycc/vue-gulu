@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import Button from './button.vue'
-import ButtonGroup from './button-group.vue'
-import Input from './input.vue'
-import Row from './row.vue'
-import Col from './col.vue'
+import Button from './Button/button.vue'
+import ButtonGroup from './Button/button-group.vue'
+import Input from './Input/input.vue'
+import Row from './Grid/row.vue'
+import Col from './Grid/col.vue'
 
 Vue.component(Button.name, Button)
 Vue.component(ButtonGroup.name, ButtonGroup)

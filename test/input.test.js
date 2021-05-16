@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Input from '../src/input.vue'
+import Input from '../src/Input/input.vue'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
