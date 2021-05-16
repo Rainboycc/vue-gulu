@@ -11,6 +11,9 @@
       padding: 0;
       box-sizing: border-box;
     }
+    img {
+      max-width: 100%;
+    }
     :root {
       --button-height: 32px;
       --font-size: 14px;
@@ -35,27 +38,48 @@
 <body>
   <!-- demo展示 -->
   <div id="app">
-    <div style="border: 1px solid red;">
-      <g-row gutter="20">
-        <g-col>1</g-col>
-        <g-col>2</g-col>
-      </g-row>
-      <g-row gutter="20">
-        <g-col>1</g-col>
-        <g-col>2</g-col>
-        <g-col>2</g-col>
-      </g-row>
-      <g-row gutter="20">
-        <g-col span="2">1</g-col>
-        <g-col span="20" offset="2">2</g-col>
-      </g-row>
-      <g-row gutter="20">
-        <g-col span="4">1</g-col>
-        <g-col span="20">2</g-col>
-      </g-row>
-    </div>
+    <g-row class="topbar">
+      <g-col class="demoBox" span="9">
+        <g-row>
+          <g-col span="3">1</g-col>
+          <g-col span="3">2</g-col>
+          <g-col span="3">3</g-col>
+          <g-col span="3">4</g-col>
+        </g-row>
+      </g-col>
+      <g-col class="demoBox" span="15">
+        <g-row align="right">
+          <g-col>1</g-col>
+          <g-col>2</g-col>
+          <g-col>3</g-col>
+          <g-col>4</g-col>
+          <g-col>5</g-col>
+          <g-col>6</g-col>
+          <g-col>7</g-col>
+        </g-row>
+      </g-col>
+    </g-row>
+    <g-row class="logo-and-search-and-qrcode">
+      <g-col class="demoBox" span="4">
+        <div class="imgWrapper">
+          <img src="//gw.alicdn.com/imgextra/i3/O1CN01uRz3de23mzWofmPYX_!!6000000007299-2-tps-143-59.png" alt="">
+        </div>
+      </g-col>
+      <g-col class="demoBox" span="14"></g-col>
+      <g-col class="demoBox" span="6"></g-col>
+    </g-row>
   </div>
+  <style>
+    .demoBox {
+      background: grey;
+      border: 1px solid red;
+    }
+    .imgWrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+  </style>
   <script src="/src/app.js"></script>
-  <!-- <script src="//at.alicdn.com/t/font_2519265_9zs4cnjbl7l.js"></script> -->
 </body>
 </html> 

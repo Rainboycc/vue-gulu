@@ -40,7 +40,7 @@
 
 <style lang="scss" scoped>
   .col {
-    width: 50%;
+    // width: 50%;
     @for $i from 1 through 24 {
       &.col-#{$i} {
         width: ($i / 24) * 100%;
