@@ -9,7 +9,8 @@ import Header from './GLayout/header.vue'
 import Content from './GLayout/content.vue'
 import Sider from './GLayout/sider.vue'
 import Footer from './GLayout/footer.vue'
-
+import Toast from './GToast/plugin'
+Vue.use(Toast)
 Vue.component(Button.name, Button)
 Vue.component(ButtonGroup.name, ButtonGroup)
 Vue.component('g-input', Input)
@@ -22,12 +23,7 @@ Vue.component('g-sider', Sider)
 Vue.component('g-footer', Footer)
 new Vue ({
   el: '#app',
-  data: {
-    message: ''
-  },
-  methods: {
-    inputChange(e) {
-      console.log(e.target.value)
-    }
+  mounted () {
+    this.$toast('message')
   }
 })
