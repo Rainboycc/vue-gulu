@@ -24,6 +24,16 @@ Vue.component('g-footer', Footer)
 new Vue ({
   el: '#app',
   mounted () {
-    this.$toast('message')
+    
+  },
+  methods: {
+    click () {
+      this.$toast('提示你一下~', {
+        closeButton: {
+          text: '关闭',
+          callback: () => { console.log('11') }
+        }
+      })
+    }
   }
 })
