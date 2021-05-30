@@ -24,16 +24,29 @@
       --border-color: #999;
       --border-color-hover: #666;
     }
-    .demo {
-      min-height: 100px;
-      border: 1px solid #666;
-    }
   </style>
 </head>
 <body>
   <!-- demo展示 -->
   <div id="app">
-    <g-button @click="click">点我</g-button>
+    <g-tabs :selected.sync="selectedTab">
+      <g-tabs-head>
+        <template v-slot:actions>
+          <button>设置</button>
+        </template>
+        <g-tabs-item name="woman">
+          <g-icon name="setting"></g-icon>
+          美女
+        </g-tabs-item>
+        <g-tabs-item name="finance">财经</g-tabs-item>
+        <g-tabs-item name="sports">体育</g-tabs-item>
+      </g-tabs-head>
+      <g-tabs-body>
+        <g-tabs-pane name="woman">美女相关资讯</g-tabs-pane>
+        <g-tabs-pane name="finance">财经相关资讯</g-tabs-pane>
+        <g-tabs-pane name="sports">体育相关资讯</g-tabs-pane>
+      </g-tabs-body>
+    </g-tabs>
   </div>
   <script src="/src/app.js"></script>
 </body>

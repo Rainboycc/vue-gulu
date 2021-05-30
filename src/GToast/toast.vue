@@ -35,7 +35,7 @@ export default {
       type: Boolean,
       default: false
     }
-  },
+  }, 
   mounted () {
     this.updateStyles()
     this.executeAutoClose()

@@ -10,7 +10,7 @@ export default {
         propsData: toastOptions
       })
       toast.$slots.default = [message]
-      toast.$mount()
+      toast.$mount() 
       document.body.appendChild(toast.$el)
     }
   }

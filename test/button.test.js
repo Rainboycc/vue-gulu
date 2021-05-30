@@ -9,7 +9,7 @@ describe('Button', () => {
   it('存在.', () => {
     expect(Button).to.be.exist // 不是 undefined 0 null false
   })
-  it('可以设置icon.', () =>{
+  it('可以设置icon.', () =>{ 
     const Constructor = Vue.extend(Button)
     const vm = new Constructor({ propsData: { icon: 'setting' } }).$mount()
     let useElement = vm.$el.querySelector('use')
