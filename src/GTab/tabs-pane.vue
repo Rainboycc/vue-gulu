@@ -29,6 +29,6 @@ export default {
 
 <style lang="scss" scoped>
   .tab-pane{
-    
+    padding: 1em;
   }
 </style>

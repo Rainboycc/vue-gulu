@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-item" @click="handleClickItem" :class="{ active }">
+  <div class="tab-item" @click="handleClickItem" :class="{ active, disabled}">
     <slot></slot>
   </div>
 </template>
@@ -16,6 +16,10 @@ export default {
     name: {
       type: String | Number,
       require: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -30,7 +34,8 @@ export default {
   },
   methods: {
     handleClickItem () {
-      this.eventBus.$emit('updated:selected', this.name)
+      if (this.disabled) return false
+      this.eventBus.$emit('updated:selected', this.name, this)
     }
   }
 }
@@ -39,10 +44,15 @@ export default {
 <style lang="scss" scoped>
   .tab-item{
     cursor: pointer;
-    padding: 0 1em;
+    padding: 1em 2em;
     flex-shrink: 0;
     &.active {
-      background: red;
+      color: blue;
+      // background: red;
+    }
+    &.disabled {
+      color: #ccc;
+      cursor: not-allowed;
     }
   }
 </style>
