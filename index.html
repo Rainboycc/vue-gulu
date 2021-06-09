@@ -29,24 +29,12 @@
 <body>
   <!-- demo展示 -->
   <div id="app">
-    <g-tabs :selected.sync="selectedTab">
-      <g-tabs-head>
-        <template v-slot:actions>
-          <button>设置</button>
-        </template>
-        <g-tabs-item name="woman" disabled>
-          <g-icon name="setting"></g-icon>
-          美女
-        </g-tabs-item>
-        <g-tabs-item name="finance">财经</g-tabs-item>
-        <g-tabs-item name="sports">体育</g-tabs-item>
-      </g-tabs-head>
-      <g-tabs-body>
-        <g-tabs-pane name="woman">美女相关资讯</g-tabs-pane>
-        <g-tabs-pane name="finance">财经相关资讯</g-tabs-pane>
-        <g-tabs-pane name="sports">体育相关资讯</g-tabs-pane>
-      </g-tabs-body>
-    </g-tabs>
+    <g-popover style="position: absolute;top: 20px;left: 10px;">
+      <template slot="content">
+        <div>111</div>
+      </template>
+      <g-button>点我</g-button>
+    </g-popover>
   </div>
   <script src="/src/app.js"></script>
 </body>

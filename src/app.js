@@ -16,6 +16,7 @@ import TabsHead from './GTab/tabs-head.vue'
 import TabsBody from './GTab/tabs-body.vue'
 import TabsItem from './GTab/tabs-item.vue'
 import TabsPane from './GTab/tabs-pane.vue'
+import TabsPopover from './GPopover/popover.vue'
 Vue.use(Toast)
 Vue.component(Button.name, Button)
 Vue.component(ButtonGroup.name, ButtonGroup)
@@ -32,6 +33,7 @@ Vue.component('g-tabs-head', TabsHead)
 Vue.component('g-tabs-item', TabsItem)
 Vue.component('g-tabs-body', TabsBody)
 Vue.component('g-tabs-pane', TabsPane)
+Vue.component('g-popover', TabsPopover)
 Vue.component('g-icon', Icon)
 new Vue ({
   el: '#app',
