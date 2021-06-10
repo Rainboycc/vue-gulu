@@ -30,14 +30,15 @@ export default {
     return {
       visible: false,
       realPosition: 'top',
-      iconPosition: 'left'
+      iconPosition: 'left',
+      flag: true
     }
   },
   created () {
     this.realPosition = this.position
   },
   mounted () {
-    const popover = this.$refs.popover
+    const { popover } = this.$refs
     if (this.trigger === 'click') {
       popover.addEventListener('click', this.onClick)
     } else {
@@ -47,28 +48,58 @@ export default {
   },
   destroyed () {
     const popover = this.$refs.popover
-    if (this.trigger === 'click') {
-      popover.removeEventListener('click', this.onClick)
-    } else {
-      popover.removeEventListener('mouseenter', this.open)
-      popover.removeEventListener('mouseleave', this.close)
+    if (popover) {
+      if (this.trigger === 'click') {
+        popover.removeEventListener('click', this.onClick)
+      } else {
+        popover.removeEventListener('mouseenter', this.open)
+        popover.removeEventListener('mouseleave', this.close)
+      }
     }
   },
   methods: {
     open () {
+      if (this.flag && this.visible) {
+        this.flag = false
+        return 
+      }
       this.visible = true
       // 为什么不用$nextTick呢？
       // 因为$nextTick优先使用微任务队列，而事件是宏任务，所以当open执行完毕，立刻执行微队列中的绑定事件操作
       // 然后触发宏队列中的点击事件，导致直接触发document上的click事件，直接关闭popover
       setTimeout(() => {
+        if (this.trigger === 'hover') {
+          this.$refs.contentWrapper.addEventListener('mouseenter', this.stopClose)
+          this.$refs.contentWrapper.addEventListener('mouseleave', this.close)
+        }
         this.setContentPosition()
         document.addEventListener('click', this.onClickDocument)
       })
     },
     close () {
+      this.flag = true
+      if (this.trigger === 'hover') {
+        // 延迟关闭
+        setTimeout(() => {
+          if (this.flag && this.visible) {
+            this.hiddenContentWrapper()
+            document.removeEventListener('click', this.onClickDocument)
+            this.$refs.contentWrapper.removeEventListener('mouseenter', this.stopClose)
+            this.$refs.contentWrapper.removeEventListener('mouseleave', this.close)
+          }
+        }, 300)
+      } else {
+        this.hiddenContentWrapper()
+        document.removeEventListener('click', this.onClickDocument)
+      }
+    },
+    hiddenContentWrapper () {
       this.visible = false
       this.$refs.contentWrapper.style.opacity = 0
-      document.removeEventListener('click', this.onClickDocument)
+    },
+    stopClose () {
+      // 阻止关闭
+      this.flag = false
     },
     getPosition ({ top, left, height, width }, { contentWrapperHeight, contentWrapperWidth }) {
       let position = this.position
