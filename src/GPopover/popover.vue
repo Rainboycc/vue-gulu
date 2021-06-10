@@ -47,60 +47,80 @@ export default {
       this.$refs.contentWrapper.style.opacity = 0
       document.removeEventListener('click', this.onClickDocument)
     },
+    getPosition ({ top, left, height, width }, { contentWrapperHeight, contentWrapperWidth }) {
+      let position = this.position
+      const no = []
+      // 判断是否被上边界遮挡
+      if (top - contentWrapperHeight < 0) { no.push('top') }
+      // 判断是否被左边界遮挡
+      if (left - contentWrapperWidth < 0) { no.push('left') }
+      // 判断左右是否出现被下边界遮挡
+      if ((document.body.clientHeight - top - height) - ((contentWrapperHeight - height) / 2) < 0) { no.push('left'); no.push('right')}
+      // 判断是否被下边界遮挡
+      if (document.body.clientHeight - top - height - contentWrapperHeight < 0) { no.push('bottom') }
+      // 判断是否被右边界遮挡
+      if (document.body.clientWidth - left - width - contentWrapperWidth < 0) { no.push('right') }
+      // 判断左右是否出现被上边界遮挡
+      if (top - ((contentWrapperHeight - height) / 2) < 0) { no.push('left'); no.push('right')}
+      const tmp = ['top', 'right',  'bottom', 'left'].filter(item => no.indexOf(item) === -1)
+      // console.log(no);
+      position = tmp.length > 0 ? tmp[0] : 'bottom'
+      return position
+    },
     setContentPosition () {
       const { contentWrapper, trigger } = this.$refs
-      document.body.appendChild(this.$refs.contentWrapper)
-      this.$refs.contentWrapper.style.display = 'block'
+      document.body.appendChild(contentWrapper)
+      contentWrapper.style.display = 'block'  // 解决出现滚动条问题
       const { top, left, height, width } = trigger.getBoundingClientRect()
       const { height: contentWrapperHeight, width: contentWrapperWidth } = contentWrapper.getBoundingClientRect()
-      let position = this.position
-      // 根据当前位置自动选择popover弹出位置
-      if (this.position === 'auto') {
-        const no = []
-        if (top - contentWrapperHeight < 0) { no.push('top') }
-        if (left - contentWrapperWidth < 0) { no.push('left') }
-        if (document.body.clientWidth - left - width - contentWrapperWidth < 0) { no.push('right') }
-        if (top - ((contentWrapperHeight - height) / 2) < 0) { no.push('left'); no.push('right')}
-        if ((document.body.clientHeight - top - height) - ((contentWrapperHeight - height) / 2) < 0) { no.push('left'); no.push('right')}
-        if (document.body.clientHeight - top - height - contentWrapperHeight < 0) { no.push('bottom') }
-        const tmp = ['top', 'right',  'bottom', 'left'].filter(item => no.indexOf(item) === -1)
-        console.log(no);
-        position = tmp.length > 0 ? tmp[0] : 'bottom'
+      this.realPosition = this.position === 'auto' ? this.getPosition({ top, left, height, width }, { contentWrapperHeight, contentWrapperWidth }) : this.position
+      // 位置表(表驱动编程)
+      const positions = {
+        top: {
+          left: {
+            top: (window.scrollY + top) + 'px',
+            left: (window.scrollX + left) + 'px'
+          },
+          right: {
+            top: (window.scrollY + top) + 'px',
+            left: (window.scrollX + left - contentWrapperWidth + width) + 'px'
+          }
+        },
+        bottom: {
+          left: {
+            top: (window.scrollY + top + height) + 'px',
+            left: (window.scrollX + left) + 'px'
+          },
+          right: {
+            top: (window.scrollY + top + height) + 'px',
+            left: (window.scrollX + left - contentWrapperWidth + width) + 'px'
+          }
+        },
+        left: {
+          left: {
+            top: (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px',
+            left: (window.scrollX + left - contentWrapperWidth) + 'px'
+          },
+          right: {
+            top: (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px',
+            left: (window.scrollX + left - contentWrapperWidth) + 'px'
+          }
+        },
+        right: {
+          left: {
+            top: (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px',
+            left: (window.scrollX + left + width) + 'px'
+          },
+          right: {
+            top: (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px',
+            left: (window.scrollX + left + width) + 'px'
+          }
+        }
       }
-      // 记录当前位置
-      this.realPosition = position
+      this.iconPosition = document.body.clientWidth - left - width - left > 0 ? 'left' : 'right'
       // 设置popover的位置
-      if (position === 'top') {
-        if (document.body.clientWidth - left - width - left > 0) {
-          // 如果触发器靠左，则弹出窗朝向右
-          contentWrapper.style.top = (window.scrollY + top) + 'px'
-          contentWrapper.style.left = (window.scrollX + left) + 'px'
-        } else {
-          // 如果触发器靠右，则弹出窗朝向左
-          this.iconPosition = 'right'
-          contentWrapper.style.top = (window.scrollY + top) + 'px'
-          contentWrapper.style.left = (window.scrollX + left - contentWrapperWidth + width) + 'px'
-        }
-      } else if (position === 'bottom') {
-        if (document.body.clientWidth - left - width - left > 0) {
-          // 如果触发器靠左，则弹出窗朝向右
-          contentWrapper.style.top = (window.scrollY + top + height) + 'px'
-          contentWrapper.style.left = (window.scrollX + left) + 'px'
-        } else {
-          // 如果触发器靠右，则弹出窗朝向左
-          this.iconPosition = 'right'
-          contentWrapper.style.top = (window.scrollY + top + height) + 'px'
-          contentWrapper.style.left = (window.scrollX + left - contentWrapperWidth + width) + 'px'
-        }
-      } else if (position === 'left') {
-        // 居中
-        contentWrapper.style.top = (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px'
-        contentWrapper.style.left = (window.scrollX + left - contentWrapperWidth) + 'px'
-      } else if (position === 'right') {
-        // 居中
-        contentWrapper.style.top = (window.scrollY + top + (height - contentWrapperHeight) / 2) + 'px'
-        contentWrapper.style.left = (window.scrollX + left + width) + 'px'
-      }
+      contentWrapper.style.top = positions[this.realPosition][this.iconPosition].top
+      contentWrapper.style.left = positions[this.realPosition][this.iconPosition].left
       contentWrapper.style.opacity = 1
     },
     onClickDocument (e) {
