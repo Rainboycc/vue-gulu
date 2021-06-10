@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" @click="onClick">
+  <div ref="popover" class="popover">
     <transition name="fade">
       <div ref="contentWrapper" class="content-wrapper" style="opacity: 0;display:none" :class="[`position-${realPosition}`, `icon-${iconPosition}`]" v-if="visible">
         <slot name="content"></slot>
@@ -19,6 +19,11 @@ export default {
       type: String,
       default: () => 'auto',
       validator: (value) => ['top', 'left', 'right', 'bottom', 'auto'].indexOf(value) > -1
+    },
+    trigger: {
+      type: String,
+      default: () => 'click',
+      validator: (value) => ['click', 'hover'].indexOf(value) > -1
     }
   },
   data () {
@@ -30,6 +35,24 @@ export default {
   },
   created () {
     this.realPosition = this.position
+  },
+  mounted () {
+    const popover = this.$refs.popover
+    if (this.trigger === 'click') {
+      popover.addEventListener('click', this.onClick)
+    } else {
+      popover.addEventListener('mouseenter', this.open)
+      popover.addEventListener('mouseleave', this.close)
+    }
+  },
+  destroyed () {
+    const popover = this.$refs.popover
+    if (this.trigger === 'click') {
+      popover.removeEventListener('click', this.onClick)
+    } else {
+      popover.removeEventListener('mouseenter', this.open)
+      popover.removeEventListener('mouseleave', this.close)
+    }
   },
   methods: {
     open () {
