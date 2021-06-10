@@ -11,8 +11,22 @@
       padding: 0;
       box-sizing: border-box;
     }
+    html,body {
+      height: 100%;
+    }
     img {
       max-width: 100%;
+    }
+    #app {
+      height: 100%;
+      position: relative;
+    }
+    .position {
+      position: absolute;
+      top: 100px;
+      right: 320px; 
+      /* left: 0; */
+      /* bottom: 320px; */
     }
     :root {
       --button-height: 32px;
@@ -29,12 +43,14 @@
 <body>
   <!-- demo展示 -->
   <div id="app">
-    <g-popover style="position: absolute;top: 20px;left: 10px;">
-      <template slot="content">
-        <div>111</div>
-      </template>
-      <g-button>点我</g-button>
-    </g-popover>
+    <div  class="position">
+      <g-popover>
+        <template slot="content">
+          <div>点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我点我</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+    </div>
   </div>
   <script src="/src/app.js"></script>
 </body>
